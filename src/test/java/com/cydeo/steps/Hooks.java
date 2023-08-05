@@ -34,13 +34,13 @@ public class Hooks {
         Driver.closeDriver();
     }
 
-    @Before()
+    @Before("@db")
     public void setupDB(){
         System.out.println("Connecting to DB...");
         DB_Util.createConnection();
     }
 
-    @After()
+    @After("@db")
     public void closeDB(){
         System.out.println("Closing DB connection...");
         DB_Util.destroy();
