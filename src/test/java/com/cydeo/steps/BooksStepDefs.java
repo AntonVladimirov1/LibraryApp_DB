@@ -26,6 +26,7 @@ public class BooksStepDefs {
     @When("the user gets all book categories in webpage")
     public void the_user_gets_all_book_categories_in_webpage() {
         //potential wait here if tests fail
+        BrowserUtil.waitFor(2);
         actualCategoryList=BrowserUtil.getAllSelectOptions(bookPage.mainCategoryElement);
         actualCategoryList.remove(0);
         System.out.println("actualCategoryList = " + actualCategoryList);
@@ -58,7 +59,7 @@ public class BooksStepDefs {
         List<String> expectedCategoryList = DB_Util.getColumnDataAsList(1);
         System.out.println("expectedCategoryList = " + expectedCategoryList);
         //compare UI vs DB
-        Assert.assertEquals("Verify category list is matching",actualCategoryList,expectedCategoryList);
+        Assert.assertEquals("Verify category list is matching",expectedCategoryList,actualCategoryList);
     }
 
     @Then("book information must match the database for {string}")
@@ -67,7 +68,7 @@ public class BooksStepDefs {
         //UI Steps
         //we need to get information from ui to compare with database
         //System.out.println("UI Bookname: "+bookPage.bookName.getText());
-        System.out.println("UI Bookname: "+bookPage.bookName.getAttribute("value"));
+        //System.out.println("UI Bookname: "+bookPage.bookName.getAttribute("value"));
         /*
             1.getText() --> it will return text from provided element
             2.getAttribute("value") --> if there is input box we are gonna use getAttribute("value") to get data from it.
@@ -80,7 +81,7 @@ public class BooksStepDefs {
         String actualYear = bookPage.year.getAttribute("value");
         String actualDesc = bookPage.description.getAttribute("value");
 
-        System.out.println("actualISBN = " + actualISBN);
+        //System.out.println("actualISBN = " + actualISBN);
 
         //get same information from database
         String query = "select name,isbn,year,author,description from books\n" +
@@ -95,16 +96,19 @@ public class BooksStepDefs {
         String expectedYear = bookInfo.get("year");
         String expectedDesc = bookInfo.get("description");
 
+        System.out.println("expectedBookName = " + expectedBookName);
         System.out.println("expectedAuthorName = " + expectedAuthorName);
         System.out.println("expectedISBN = " + expectedISBN);
+        System.out.println("expectedYear = " + expectedYear);
+        System.out.println("expectedDesc = " + expectedDesc);
 
 
         //compare them
-        Assert.assertEquals(actualBookName,expectedBookName);
-        Assert.assertEquals(actualAuthorName,expectedAuthorName);
-        Assert.assertEquals(actualISBN,expectedISBN);
-        Assert.assertEquals(actualYear,expectedYear);
-        Assert.assertEquals(bookPage.description.getAttribute("value"),bookInfo.get("description"));
+        Assert.assertEquals(expectedBookName,actualBookName);
+        Assert.assertEquals(expectedAuthorName,actualAuthorName);
+        Assert.assertEquals(expectedISBN,actualISBN);
+        Assert.assertEquals(expectedYear,actualYear);
+        Assert.assertEquals(expectedDesc,actualDesc);
 
 
     }

@@ -9,8 +9,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-public class DashboardStepDefs
-{
+public class DashboardStepDefs {
     String actualUserNumbers;
     String actualBookNumbers;
     String actualBorrowedBookNumbers;
@@ -41,7 +40,7 @@ public class DashboardStepDefs
         //This scenario Database result is expected.
 
         //Connect the same database (library2)
-        //DB_Util.createConnection(); connection will be created by @db hooks
+       // DB_Util.createConnection(); // connection will be created by @db hooks
         //run query for each of the result (3 different queries)
 
         //BOOKS
@@ -50,14 +49,14 @@ public class DashboardStepDefs
         String expectedBookNumbers = DB_Util.getFirstRowFirstColumn();
         System.out.println("expectedBookNumbers = " + expectedBookNumbers);
         //compare results with UI results(Actual results)
-        Assert.assertEquals(actualBookNumbers,expectedBookNumbers);
+        Assert.assertEquals(expectedBookNumbers,actualBookNumbers);
 
         //USERS
         DB_Util.runQuery("select count(*) from users");
         String expectedUserNumbers = DB_Util.getFirstRowFirstColumn();
         System.out.println("expectedUserNumbers = " + expectedUserNumbers);
         //compare results
-        Assert.assertEquals(actualUserNumbers,expectedUserNumbers);
+        Assert.assertEquals(expectedUserNumbers,actualUserNumbers);
 
         //BORROWED BOOKS
         String query = "select count(*) from book_borrow\n" +
@@ -68,7 +67,7 @@ public class DashboardStepDefs
         String expectedBorrowedBookNumbers= DB_Util.getFirstRowFirstColumn();
         System.out.println("expectedBorrowedBookNumbers = " + expectedBorrowedBookNumbers);
 
-        Assert.assertEquals(actualBorrowedBookNumbers,expectedBorrowedBookNumbers);
+        Assert.assertEquals(expectedBorrowedBookNumbers,actualBorrowedBookNumbers);
 
         //close connection
         //DB_Util.destroy(); connection will be closed  by @db hooks

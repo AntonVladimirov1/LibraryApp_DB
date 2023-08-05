@@ -1,6 +1,6 @@
 @smoke
 Feature: Book Category
-
+@db1
   Scenario: verify book categories with UI
     Given the user logged in as "librarian"
     When the user navigates to "Books" page
@@ -26,13 +26,13 @@ Feature: Book Category
       | Essay                   |
       | Memoir                  |
       | Poetry                  |
-   @db
+   @db2
   Scenario: verify book categories with DB
     Given the user logged in as "librarian"
     When the user navigates to "Books" page
     And the user gets all book categories in webpage
     Then verify book categories must match book categories table from db
-  @db
+  @db3
   Scenario: Verify book information with db
     Given the user logged in as "librarian"
     And the user navigates to "Books" page
